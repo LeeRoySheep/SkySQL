@@ -75,7 +75,6 @@ def print_results(results):
     Get a list of flight results (List of dictionary-like objects from SQLAachemy).
     Even if there is one result, it should be provided in a list.
     Each object *has* to contain the columns:
-    FLIGHT_ID, ORIGIN_AIRPORT, DESTINATION_AIRPORT, AIRLINE, and DELAY.
     """
     print(f"Got {len(results)} results.")
     for result in results:
