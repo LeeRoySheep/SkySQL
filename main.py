@@ -1,4 +1,4 @@
-import data
+import data, data_plotter
 from datetime import datetime
 import sqlalchemy
 
@@ -70,6 +70,42 @@ def flights_by_date(data_manager):
     print_results(results)
 
 
+def plot_delayed_flights_by_airlines(data_manager):
+    """
+    Creates a bar chart of the percentage of delayed flights by airline
+    """
+    results = data_manager.get_delayed_flights_by_airlines()
+    results = {result._mapping for result in results}
+    data_plotter.plot_delayed_flights_by_airlines(results)
+
+
+def plot_delayed_flights_by_hours(data_manager):
+    """
+    Plots a bar chart of the percentage of delayed flights by hour
+    """
+    results = data_manager.get_delayed_flights_by_hours()
+    results = {result._mapping for result in results}
+    data_plotter.plot_delayed_flights_by_hours(results)
+
+
+def plot_delayed_routes_as_heatmap(data_manager):
+    """
+    Plots a heatmap of the percentage of delayed flights by origin and destination
+    """
+    results = data_manager.get_delayed_routes()
+    results = {result._mapping for result in results}
+    data_plotter.plot_delayed_routes_as_heatmap(results)
+
+
+def plot_delayed_routes_on_map(data_manager):
+    """
+    Plots a map of the percentage of delayed flights by origin and destination
+    """
+    results = data_manager.get_delayed_routes_with_lon_lat()
+    results = {result._mapping for result in results}
+    data_plotter.plot_route_delays_usa_map(results)
+
+
 def print_results(results):
     """
     Get a list of flight results (List of dictionary-like objects from SQLAachemy).
@@ -125,7 +161,11 @@ FUNCTIONS = { 1: (flight_by_id, "Show flight by ID"),
               2: (flights_by_date, "Show flights by date"),
               3: (delayed_flights_by_airline, "Delayed flights by airline"),
               4: (delayed_flights_by_airport, "Delayed flights by origin airport"),
-              5: (quit, "Exit")
+              5: (plot_delayed_flights_by_airlines, "Plot delayed flights by origin airport"),
+              6: (plot_delayed_flights_by_hours, "Plot delayed flights by hours"),
+              7: (plot_delayed_routes_as_heatmap, "Plot delayed routes as heatmap"),
+              8: (plot_delayed_routes_on_map, "Plot delayed routes on map"),
+              9: (quit, "Exit")
              }
 
 
